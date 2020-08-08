@@ -11,6 +11,8 @@ jobs:
 
     env:
       DOCKER_CONTAINER_REGISTRY: groffegithubactions.azurecr.io
+      NOME_IMAGEM: $DOCKER_CONTAINER_REGISTRY/apicontagemk8s
+      PATH_PROJETO: ./APIContagem
 
     runs-on: ubuntu-latest
 
@@ -24,4 +26,9 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         login-server: ${{ env.DOCKER_CONTAINER_REGISTRY }}
       
-      
+    - name: Build e Push no Azure Container Registry
+      run: |
+        cd ${{ env.PATH_PROJETO }}
+        docker build . --file Dockerfile --tag ${{ env.NOME_IMAGEM }}:$GITHUB_RUN_NUMBER
+        docker tag {{ env.NOME_IMAGEM }}:$GITHUB_RUN_NUMBER ${{ env.NOME_IMAGEM }}:latest
+        docker push ${{ env.NOME_IMAGEM }}
