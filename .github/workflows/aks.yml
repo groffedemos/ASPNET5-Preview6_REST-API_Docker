@@ -33,5 +33,5 @@ jobs:
       run: |
         cd ${{ env.PATH_PROJETO }}
         docker build . --file Dockerfile --tag ${{ env.NOME_IMAGEM }}:$GITHUB_RUN_NUMBER
-        docker tag {{ env.NOME_IMAGEM }}:$GITHUB_RUN_NUMBER ${{ env.NOME_IMAGEM }}:latest
+        docker tag ${{ env.NOME_IMAGEM }}:$GITHUB_RUN_NUMBER ${{ env.NOME_IMAGEM }}:latest
         docker push ${{ env.NOME_IMAGEM }}
