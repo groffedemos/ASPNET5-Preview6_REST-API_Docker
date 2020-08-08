@@ -13,6 +13,9 @@ jobs:
       DOCKER_CONTAINER_REGISTRY: groffegithubactions.azurecr.io
       NOME_IMAGEM: $DOCKER_CONTAINER_REGISTRY/apicontagemk8s
       PATH_PROJETO: ./APIContagem
+      AZURE_RESOURCE_GROUP_K8S: TesteKubernetes
+      AZURE_CLUSTER_K8S: AKSCluster
+      NAMESPACE_K8S: anp0
 
     runs-on: ubuntu-latest
 
@@ -35,3 +38,22 @@ jobs:
         docker build . --file Dockerfile --tag ${{ env.NOME_IMAGEM }}:$GITHUB_RUN_NUMBER
         docker tag ${{ env.NOME_IMAGEM }}:$GITHUB_RUN_NUMBER ${{ env.NOME_IMAGEM }}:latest
         docker push ${{ env.NOME_IMAGEM }}
+
+    - name: Azure Kubernetes Service - set context - Conectando ao cluster
+      uses: Azure/aks-set-context@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }} 
+        resource-group: ${{ env.AZURE_RESOURCE_GROUP_K8S }}
+        cluster-name:  ${{ env.AZURE_CLUSTER_K8S }}
+
+    - name: Azure Kubernetes Service - Criando Secret para acesso ao Container Registry
+      uses: Azure/k8s-create-secret@v1
+      with:
+        namespace: ${{ env.NAMESPACE_K8S }}
+        container-registry-url: ${{ env.DOCKER_CONTAINER_REGISTRY }}
+        container-registry-username: ${{ secrets.DOCKER_USERNAME }}
+        container-registry-password: ${{ secrets.DOCKER_PASSWORD }}
+        secret-name: webapp-k8s-secret
+
+    - name: kubectl - Exibindo a versão
+      run: kubectl version
