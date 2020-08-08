@@ -18,6 +18,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Teste nome imagem
+      run: echo ${{ env.NOME_IMAGEM }}
 
     - name: Login no Azure Container Registry
       uses: Azure/docker-login@v1
