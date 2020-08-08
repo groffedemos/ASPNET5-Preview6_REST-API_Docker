@@ -33,7 +33,7 @@ namespace APIContagem.Controllers
                     _CONTADOR.Local,
                     _CONTADOR.Kernel,
                     _CONTADOR.TargetFramework,
-                    MensagemFixa = "Teste Commit",
+                    MensagemFixa = "Teste Commit eeeeeeeeeeeeeeeeeeeeee",
                     MensagemVariavel = _configuration["MensagemVariavel"]
                 };
             }
