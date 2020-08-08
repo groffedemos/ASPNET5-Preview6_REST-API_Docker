@@ -16,6 +16,7 @@ jobs:
       AZURE_RESOURCE_GROUP_K8S: TesteKubernetes
       AZURE_CLUSTER_K8S: AKSCluster
       NAMESPACE_K8S: anp0
+      DEPLOYMENT_K8S: apicontagemk8s
 
     runs-on: ubuntu-latest
 
@@ -57,3 +58,18 @@ jobs:
 
     - name: kubectl - Exibindo a versão
       run: kubectl version
+
+    - name: kubectl - Removendo o Deployment caso exista
+      run: kubectl delete deployment --ignore-not-found ${{ env.DEPLOYMENT_K8S }} -n ${{ env.NAMESPACE_K8S }}
+
+    - name: Azure Kubernetes Service - Deployment de Web App
+      uses: Azure/k8s-deploy@v1
+      with:
+        namespace: ${{ env.NAMESPACE_K8S }}
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          ${{ env.NOME_IMAGEM }}:latest
+        imagepullsecrets: |
+          webapp-k8s-secret
