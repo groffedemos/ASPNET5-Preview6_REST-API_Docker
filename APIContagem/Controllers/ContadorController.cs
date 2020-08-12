@@ -33,7 +33,7 @@ namespace APIContagem.Controllers
                     _CONTADOR.Local,
                     _CONTADOR.Kernel,
                     _CONTADOR.TargetFramework,
-                    MensagemFixa = "Teste rápido com AKS",
+                    MensagemFixa = "Teste",
                     MensagemVariavel = _configuration["MensagemVariavel"]
                 };
             }
