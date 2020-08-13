@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: apicontagemk8s 
 spec:
-  replicas: 4
+  replicas: 150
   selector:
     matchLabels:
       app: apicontagemk8s
