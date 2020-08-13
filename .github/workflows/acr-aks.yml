@@ -16,7 +16,7 @@ jobs:
       PATH_PROJETO: ./APIContagem
       AZURE_RESOURCE_GROUP_K8S: TesteKubernetes
       AZURE_CLUSTER_K8S: AKSCluster
-      NAMESPACE_K8S: aula-githubactions
+      NAMESPACE_K8S: aula-githubactions-pt2
       DEPLOYMENT_K8S: apicontagemk8s
 
     runs-on: ubuntu-latest
