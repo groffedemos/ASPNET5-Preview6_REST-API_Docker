@@ -17,6 +17,6 @@ spec:
           image: groffegithubactions.azurecr.io/apicontagemk8s
           env:
             - name: MensagemVariavel
-              value: Utilizando o Azure Kubernetes Service (AKS)
+              value: Aula GitHub Actions - Utilizando o Azure Kubernetes Service (AKS)
           ports:
           - containerPort: 80
